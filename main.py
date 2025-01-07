@@ -4,9 +4,18 @@ import pandas as pd
 CSV_NAME = "~/supermarket_sales.csv"
 
 
-def pd_read_csv():
-    df = pd.read_csv(CSV_NAME)
-    return df
+def pd_read_csv(csv_name):
+    if not csv_name.endswith('.csv'):
+        print("Error: Not a CSV file.")
+        raise ValueError
+    else:
+        try:
+            df = pd.read_csv(csv_name)
+        except FileNotFoundError:
+            print("Error: File not found/does not exist.")
+            raise
+        else:
+            return df
 
 
 def calc_total_profit(df):
@@ -35,12 +44,11 @@ def get_column_rows(df, column_index, column):
 
 # A majority of what is in main right now is for testing/brainstorming.
 def main():
-    df = pd_read_csv()
+    df = pd_read_csv(CSV_NAME)
 
     unique_cities = get_column_values(df, 'City')
     print(unique_cities)
     city = get_column_rows(df, 'City', unique_cities[2])
-    # city_trev = calc_total_rev(city)
     city_min = calc_min(city, 'Total')
     print(city_min)
 

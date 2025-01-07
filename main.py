@@ -13,25 +13,30 @@ def calc_total_profit(df):
 def calc_total_rev(df):
     return df['Total'].sum()
 
-def get_unique_branches(df):
-    return df['Branch'].unique()
+def calc_min(df, column_name):
+    return df[column_name].min()
 
-def divide_branch(df, branch):
-    return df.loc[df['Branch'] == branch]
+def calc_max(df, column_name):
+    return df[column_name].max()
+
+def get_column_values(df, column_name):
+    return df[column_name].unique()
+
+def get_column_rows(df, column_index, column):
+    return df.loc[df[column_index] == column]
 
 # A majority of what is in main right now is for testing/brainstorming.
 def main():
     df = pd_read_csv()
-    total_profit = calc_total_profit(df)
-    total_rev = calc_total_rev(df)
-    unique_branches = get_unique_branches(df)
-    print(unique_branches)
-    branch = divide_branch(df, unique_branches[0])
-    branch_trev = calc_total_rev(branch)
-    print(branch_trev)
-    print(total_rev)
 
-    
+    unique_cities = get_column_values(df, 'City')
+    print(unique_cities)
+    city = get_column_rows(df, 'City', unique_cities[2])
+    # city_trev = calc_total_rev(city)
+    city_min = calc_min(city, 'Total')
+    print(city_min)
+
+
 
 if __name__ == "__main__":
     main()

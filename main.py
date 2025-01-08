@@ -1,4 +1,5 @@
 import pandas as pd
+import math
 
 # Will make this dynamic, for now hard-coded dataset.
 CSV_NAME = "~/supermarket_sales.csv"
@@ -19,11 +20,11 @@ def pd_read_csv(csv_name):
 
 
 def calc_total_profit(df):
-    return df['gross income'].sum()
+    return math.floor(df['gross income'].sum() * 100) / 100
 
 
 def calc_total_rev(df):
-    return df['Total'].sum()
+    return math.floor(df['Total'].sum() * 100) / 100
 
 
 def calc_min(df, column_name):

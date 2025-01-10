@@ -39,9 +39,9 @@ class TestCSVMethods(unittest.TestCase):
 
         self.assertIsInstance(result1, pd.DataFrame)
         self.assertIsInstance(result2, pd.DataFrame)
-        self.assertRaises(FileNotFoundError, main.pd_read_csv,
+        self.assertRaises(SystemExit, main.pd_read_csv,
                           'doesnotexist.csv')
-        self.assertRaises(ValueError, main.pd_read_csv, 'test.txt')
+        self.assertRaises(SystemExit, main.pd_read_csv, 'test.txt')
 
         os.remove('df1.csv')
         os.remove('df2.csv')
@@ -75,6 +75,12 @@ class TestStatisticsMethods(unittest.TestCase):
 
 
 class TestDataGrabMethods(unittest.TestCase):
+    def test_get_row_amount(self):
+        self.assertEqual(main.get_row_amount(df1), 3)
+        self.assertEqual(main.get_row_amount(df2), 5)
+        self.assertEqual(main.get_row_amount(df3), 3)
+        self.assertEqual(main.get_row_amount(df4), 3)
+
     def test_get_column_values(self):
         self.assertEqual(main.get_column_values(df1, 'a').tolist(), [1, 2])
         self.assertEqual(main.get_column_values(df1, 'b').tolist(), [3, 4])

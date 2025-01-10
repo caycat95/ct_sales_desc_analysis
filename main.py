@@ -1,8 +1,10 @@
 import pandas as pd
 import math
+import sys
 
-# Will make this dynamic, for now hard-coded dataset.
-CSV_NAME = "~/supermarket_sales.csv"
+
+def get_csv():
+    return sys.argv[1]
 
 
 def pd_read_csv(csv_name):
@@ -43,9 +45,16 @@ def get_column_rows(df, column_index, column):
     return df.loc[df[column_index] == column]
 
 
+def get_gender_ratio(amount_f, amount_m, amount_rows):
+    ratio_f = amount_f / amount_rows
+    ratio_m = amount_m / amount_rows
+    return ratio_f, ratio_m
+
+
 # A majority of what is in main right now is for testing/brainstorming.
 def main():
-    df = pd_read_csv(CSV_NAME)
+    csv_name = get_csv()
+    df = pd_read_csv(csv_name)
 
     unique_cities = get_column_values(df, 'City')
     print(unique_cities)

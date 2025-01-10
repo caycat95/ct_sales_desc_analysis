@@ -3,7 +3,8 @@ import unittest
 import pandas as pd
 import os
 import numpy as np
-
+import sys
+from unittest.mock import patch
 from pandas.testing import assert_frame_equal
 
 df1 = pd.DataFrame({'a': [1, 2, 1], 'b': [3, 4, 3]})
@@ -19,6 +20,12 @@ df6 = pd.DataFrame({'Total': [45.6, 23.089, 75.6],
 
 
 class TestCSVMethods(unittest.TestCase):
+    def test_get_csv(self):
+        test_arg = ['script_name', 'sales_datasheet.csv']
+        with patch.object(sys, 'argv', test_arg):
+            csv_name = main.get_csv()
+            self.assertEqual(csv_name, 'sales_datasheet.csv')
+
     def test_pd_read_csv(self):
         df1.to_csv('df1.csv')
         df2.to_csv('df2.csv')
